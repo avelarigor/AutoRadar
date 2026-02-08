@@ -1,0 +1,87 @@
+# Token FIPE - não versionar (contém segredo)
+.env
+fipe_token.txt
+
+# Telegram - token e chat_id (edite telegram_config.json localmente; use telegram_config.example.json como modelo)
+telegram_config.json
+
+# IA (OpenAI/Ollama) - chave da API não versionar; use ai_config.example.json como modelo
+ai_config.json
+
+# Preferências locais (copie user_preferences.example.json para user_preferences.json e edite)
+user_preferences.json
+
+# Profiles / sessão (NÃO subir)
+chrome_login_profile_olx/
+chrome_login_profile*/
+user-data-dir/
+user_data_dir/
+browser_state.json
+browser_profile/
+chrome_login_profile/
+
+# Cache e saídas gerados pelo app
+out/**/*.jpg
+out/**/*.jpeg
+out/**/*.png
+out/**/*.webp
+out/**/*.mp4
+out/**/*.zip
+cache_listing/
+log/
+*.log
+links.txt
+seen_links.json
+sent_to_telegram.json
+relatório.txt
+
+# Python
+venv/
+.venv/
+venv_old/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyc
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# IDE / editor
+.cursor/
+.vscode/
+*.swp
+*~
+desktop.ini
+
+# Debug (fotos e logs de teste)
+Debug/logs/
+Debug/scan_photos/
+Debug/listings_debug.json
+Debug/links_debug.txt
+trash/
+
+# Secrets / configs locais
+*.env
+.env
+ai_config.json
+telegram_config.json
+
+# Temporários
+_zip_v2_temp/
+Debug/
+test_olx_cache/
+
+# Runtime state / execution artifacts
+last_telegram_execution.json
+out/links_coletados.txt
+out/listings_all_clean.json
+
+# Full backup dumps (debug only)
+out/listings_*_backup_full.json
+
+# FIPE runtime progress
+out/fipe_download_progress.json

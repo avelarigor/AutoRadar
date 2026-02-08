@@ -1,0 +1,46 @@
+{
+  "city": "Montes Claros",
+  "state": "MG",
+  "price_min": 0,
+  "price_max": 0,
+  "margin_min_reais": 5000,
+  "run_every_minutes": 60,
+  "vehicle_types": {
+    "car": true,
+    "motorcycle": false,
+    "truck": false
+  },
+  "webmotors": {
+    "_instructions": "Para usar a Webmotors: 1) Acesse www.webmotors.com.br no navegador, 2) Configure os filtros desejados (cidade, preço, etc.), 3) Copie o link completo da página de resultados, 4) Cole aqui em 'search_url'. Se deixar vazio, usa padrão Montes Claros/MG.",
+    "enabled": true,
+    "search_url": ""
+  },
+  "mobiauto": {
+    "_instructions": "Para usar a Mobiauto: 1) Acesse www.mobiauto.com.br no navegador, 2) Configure os filtros desejados (cidade, preço, etc.), 3) Copie o link completo da página de resultados, 4) Cole aqui em 'search_url'. Se deixar vazio, usa padrão Montes Claros/MG.",
+    "enabled": true,
+    "search_url": ""
+  },
+  "olx": {
+    "_instructions": "Para usar a OLX: 1) Acesse www.olx.com.br no navegador, 2) Configure os filtros desejados (cidade, preço, etc.), 3) Ordene por 'Mais recentes' (parâmetro ?sf=1 na URL), 4) Copie o link completo da página de resultados, 5) Cole aqui em 'search_url'. Se deixar vazio, usa padrão Montes Claros/MG ordenado por mais recentes. IMPORTANTE: Apenas a primeira página será coletada (~105 anúncios).",
+    "enabled": true,
+    "search_url": ""
+  },
+  "keywords_avoid": [
+    "# Palavras a evitar (um por linha). Linhas com # são ignoradas.",
+    "golpe",
+    "leilão",
+    "sinistro",
+    "batido",
+    "recuperado",
+    "alienado",
+    "restrição",
+    "documentação irregular",
+    "roubo",
+    "furto",
+    "perda total"
+  ],
+  "telegram_daily_reports": {
+    "enabled": false,
+    "_comment": "Ative para registrar envios e parciais 12h/19h e recap 08h."
+  }
+}

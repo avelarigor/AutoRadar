@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoRadar - Ranking de Oportunidades</title>
+  <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        h1 { color: #333; }
+        h2 { color: #555; margin-top: 30px; }
+        .tabs { display: flex; gap: 10px; margin: 20px 0; }
+        .tab { padding: 10px 20px; background: #ddd; cursor: pointer; border-radius: 5px 5px 0 0; }
+        .tab.active { background: #4CAF50; color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-top: 10px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; font-size: 14px; }
+        th { background: #4CAF50; color: white; font-weight: bold; }
+        .rejected-table th { background: #f44336; }
+        tr:hover { background: #f5f5f5; }
+        .margem-positiva { color: green; font-weight: bold; }
+        .drop-reason { color: #d32f2f; font-weight: bold; }
+        a { color: #2196F3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .stats { background: white; padding: 15px; border-radius: 5px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .stats-by-source { font-size: 14px; color: #444; margin: 6px 0; }
+  </style>
+    <script>
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+    </script>
+</head>
+<body>
+    <h1>🚗 AutoRadar - Relatório Completo</h1>
+    <div class="stats">
+        <p><strong>6 anúncios enviados no último scan.</strong></p>
+        <p><strong>Total avaliado:</strong> 6 anúncios</p>
+        <p><strong>✅ Aprovados:</strong> 1 oportunidades</p>
+        <p class="stats-by-source">→ 1 FB Marketplace | 0 OLX | 0 Webmotors | 0 Mobiauto</p>
+        <p><strong>❌ Rejeitados:</strong> 5 anúncios</p>
+        <p class="stats-by-source">→ 5 FB Marketplace | 0 OLX | 0 Webmotors | 0 Mobiauto</p>
+        <p><strong>Motivos de rejeição:</strong></p><p class="stats-by-source">• Sem título ou ano: 3<br>
+        • Tipo de veículo desativado: 1<br>
+        • Margem abaixo do mínimo: 1</p>
+        <p style="color:#666;font-size:13px;">📅 Referência FIPE (mês/ano dos preços): <strong>fevereiro/2026</strong> — arquivo: 07/02/2026</p>
+    </div>
+    
+    <div class="tabs">
+        <div class="tab active" onclick="showTab('approved')">✅ Oportunidades (1)</div>
+        <div class="tab" onclick="showTab('rejected')">❌ Rejeitados (5)</div>
+    </div>
+    <div id="approved" class="tab-content active">
+    <h2>Oportunidades Encontradas</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Modelo</th>
+                <th>IA</th>
+                <th>Modelo FIPE Aprox</th>
+                <th>Ano</th>
+                <th>Km</th>
+                <th>Preço</th>
+                <th>FIPE Aprox</th>
+                <th>Margem R$</th>
+                <th>Margem %</th>
+                <th>Risco golpe</th>
+                <th>Cidade</th>
+                <th>Detalhes</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td><strong>FB Marketplace</strong></td>
+                <td>2018 Chevrolet onix <span style="color:#ff6600;font-weight:bold;">⚠️ Margem suspeita. Atenção</span></td>
+                <td>🤖 IA Check</td>
+                <td>onix</td>
+                <td>2018</td>
+                <td>2,018 km</td>
+                <td>R$35.800</td>
+                <td>R$ 53,948.00</td>
+                <td class="margem-positiva">R$ 18,148</td>
+                <td class="margem-positiva">33.6%</td>
+                <td title=""></td>
+                <td>Montes Claros, MG</td>
+                <td>Câmbio: Manual · Cor ext.: White · Cor int.: Patrocinado</td>
+                <td><a href="https://www.facebook.com/marketplace/item/888159500862728/?ref=category_feed&amp;referral_code=undefined&amp;referral_story_type=listing&amp;tracking=%7B%22qid%22%3A%22-7459197381370864704%22%2C%22mf_story_key%22%3A%2225194361910241281%22%2C%22commerce_rank_obj%22%3A%22%7B%5C%22target_id%5C%22%3A25194361910241281%2C%5C%22target_type%5C%22%3A0%2C%5C%22primary_position%5C%22%3A22%2C%5C%22ranking_signature%5C%22%3A5583771771050302885%2C%5C%22ranking_request_id%5C%22%3A4320906394609221679%2C%5C%22commerce_channel%5C%22%3A504%2C%5C%22value%5C%22%3A6.4751018740027e-6%2C%5C%22candidate_retrieval_source_map%5C%22%3A%7B%5C%2225194361910241281%5C%22%3A302%7D%7D%22%7D&amp;__tn__=!%3AD" target="_blank">Ver Anúncio</a></td>
+            </tr>
+
+        </tbody>
+    </table>
+    </div>
+    <div id="rejected" class="tab-content">
+    <h2>Anúncios Rejeitados</h2>
+
+    <table class="rejected-table">
+    <thead>
+      <tr>
+        <th>Origem</th>
+        <th>Título</th>
+        <th>Preço</th>
+        <th>Ano</th>
+        <th>Km</th>
+        <th>Cidade</th>
+        <th>Motivo de Exclusão</th>
+        <th>Link</th>
+      </tr>
+    </thead>
+        <tbody>
+
+            <tr>
+                <td><strong>FB Marketplace</strong></td>
+                <td>2010 Chevrolet expression</td>
+                <td>—</td>
+                <td>—</td>
+                <td>2,010 km</td>
+                <td>—</td>
+                <td class="drop-reason">Sem título ou ano</td>
+                <td><a href="https://www.facebook.com/marketplace/item/1221135326793916/?ref=category_feed&amp;referral_code=undefined&amp;referral_story_type=listing&amp;tracking=%7B%22qid%22%3A%22-7459197381370864704%22%2C%22mf_story_key%22%3A%2227615265088154373%22%2C%22commerce_rank_obj%22%3A%22%7B%5C%22target_id%5C%22%3A27615265088154373%2C%5C%22target_type%5C%22%3A0%2C%5C%22primary_position%5C%22%3A19%2C%5C%22ranking_signature%5C%22%3A5583771771050302885%2C%5C%22ranking_request_id%5C%22%3A4320906394609221679%2C%5C%22commerce_channel%5C%22%3A504%2C%5C%22value%5C%22%3A7.5093626411188e-6%2C%5C%22candidate_retrieval_source_map%5C%22%3A%7B%5C%2227615265088154373%5C%22%3A302%7D%7D%22%7D&amp;__tn__=!%3AD" target="_blank">Ver Anúncio</a></td>
+            </tr>
+
+            <tr>
+                <td><strong>FB Marketplace</strong></td>
+                <td>2019 Honda xre</td>
+                <td>R$ 20,000</td>
+                <td>2019</td>
+                <td>2,019 km</td>
+                <td>Montes Claros, MG</td>
+                <td class="drop-reason">Tipo de veículo desativado</td>
+                <td><a href="https://www.facebook.com/marketplace/item/1258462612810480/?ref=category_feed&amp;referral_code=undefined&amp;referral_story_type=listing&amp;tracking=%7B%22qid%22%3A%22-7459197381370864704%22%2C%22mf_story_key%22%3A%2225747633298237745%22%2C%22commerce_rank_obj%22%3A%22%7B%5C%22target_id%5C%22%3A25747633298237745%2C%5C%22target_type%5C%22%3A0%2C%5C%22primary_position%5C%22%3A23%2C%5C%22ranking_signature%5C%22%3A5583771771050302885%2C%5C%22ranking_request_id%5C%22%3A4320906394609221679%2C%5C%22commerce_channel%5C%22%3A504%2C%5C%22value%5C%22%3A5.7635098512256e-6%2C%5C%22candidate_retrieval_source_map%5C%22%3A%7B%5C%2225747633298237745%5C%22%3A111%7D%7D%22%7D&amp;__tn__=!%3AD" target="_blank">Ver Anúncio</a></td>
+            </tr>
+
+            <tr>
+                <td><strong>FB Marketplace</strong></td>
+                <td>2003 FIAT uno</td>
+                <td>R$ 14,500</td>
+                <td>2003</td>
+                <td>2,003 km</td>
+                <td>Montes Claros, MG</td>
+                <td class="drop-reason">Margem abaixo do mínimo</td>
+                <td><a href="https://www.facebook.com/marketplace/item/3288717524642176/?ref=category_feed&amp;referral_code=undefined&amp;referral_story_type=listing&amp;tracking=%7B%22qid%22%3A%22-7459197381370864704%22%2C%22mf_story_key%22%3A%2226219419604361207%22%2C%22commerce_rank_obj%22%3A%22%7B%5C%22target_id%5C%22%3A26219419604361207%2C%5C%22target_type%5C%22%3A0%2C%5C%22primary_position%5C%22%3A25%2C%5C%22ranking_signature%5C%22%3A5583771771050302885%2C%5C%22ranking_request_id%5C%22%3A4320906394609221679%2C%5C%22commerce_channel%5C%22%3A504%2C%5C%22value%5C%22%3A4.8953189120073e-6%2C%5C%22candidate_retrieval_source_map%5C%22%3A%7B%5C%2226219419604361207%5C%22%3A302%7D%7D%22%7D&amp;__tn__=!%3AD" target="_blank">Ver Anúncio</a></td>
+            </tr>
+
+            <tr>
+                <td><strong>FB Marketplace</strong></td>
+                <td>2001 Volkswagen golf</td>
+                <td>—</td>
+                <td>—</td>
+                <td>2,001 km</td>
+                <td>—</td>
+                <td class="drop-reason">Sem título ou ano</td>
+                <td><a href="https://www.facebook.com/marketplace/item/1615062946316760/?ref=category_feed&amp;referral_code=undefined&amp;referral_story_type=listing&amp;tracking=%7B%22qid%22%3A%22-7459197381370864704%22%2C%22mf_story_key%22%3A%2225991211107175989%22%2C%22commerce_rank_obj%22%3A%22%7B%5C%22target_id%5C%22%3A25991211107175989%2C%5C%22target_type%5C%22%3A0%2C%5C%22primary_position%5C%22%3A31%2C%5C%22ranking_signature%5C%22%3A5583771771050302885%2C%5C%22ranking_request_id%5C%22%3A4320906394609221679%2C%5C%22commerce_channel%5C%22%3A504%2C%5C%22value%5C%22%3A4.2603426867333e-6%2C%5C%22candidate_retrieval_source_map%5C%22%3A%7B%5C%2225991211107175989%5C%22%3A302%7D%7D%22%7D&amp;__tn__=!%3AD" target="_blank">Ver Anúncio</a></td>
+            </tr>
+
+            <tr>
+                <td><strong>FB Marketplace</strong></td>
+                <td>2014 Honda cb</td>
+                <td>—</td>
+                <td>—</td>
+                <td>2,014 km</td>
+                <td>—</td>
+                <td class="drop-reason">Sem título ou ano</td>
+                <td><a href="https://www.facebook.com/marketplace/item/759555246767794/?ref=category_feed&amp;referral_code=undefined&amp;referral_story_type=listing&amp;tracking=%7B%22qid%22%3A%22-7459197381370864704%22%2C%22mf_story_key%22%3A%2233624560513858546%22%2C%22commerce_rank_obj%22%3A%22%7B%5C%22target_id%5C%22%3A33624560513858546%2C%5C%22target_type%5C%22%3A0%2C%5C%22primary_position%5C%22%3A36%2C%5C%22ranking_signature%5C%22%3A5583771771050302885%2C%5C%22ranking_request_id%5C%22%3A4320906394609221679%2C%5C%22commerce_channel%5C%22%3A504%2C%5C%22value%5C%22%3A4.1692412431713e-6%2C%5C%22candidate_retrieval_source_map%5C%22%3A%7B%5C%2233624560513858546%5C%22%3A302%7D%7D%22%7D&amp;__tn__=!%3AD" target="_blank">Ver Anúncio</a></td>
+            </tr>
+
+        </tbody>
+  </table>
+
+    </div>
+</body>
+</html>

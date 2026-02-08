@@ -1,0 +1,55 @@
+========================================
+Tabela FIPE - AutoRadar (sempre atualizada, offline)
+========================================
+
+O ranking compara anúncios com a TABELA FIPE REAL. Para isso, é preciso
+ter a tabela baixada e normalizada em:
+
+  out/fipe_db_norm.json
+
+COMO OBTER A TABELA FIPE REAL
+-----------------------------
+OPÇÃO A - Começar com o CSV (recomendado se você já tem o arquivo)
+   Rode primeiro a importação do CSV (usa a referência mais recente por marca/modelo/ano):
+
+   .\venv\Scripts\python.exe fipe_import_csv.py
+
+   (Por padrão usa: trash\tabela-fipe-historico-precos.csv)
+
+   Ou com caminho do CSV:
+   .\venv\Scripts\python.exe fipe_import_csv.py "C:\caminho\tabela-fipe-historico-precos.csv"
+
+   Depois, quando quiser atualizar os valores pela API, rode fipe_download.py
+   (ele carrega a base existente e só atualiza os valores).
+
+OPÇÃO B - Só download pela API
+1. Rode o script de download (usa API Parallelum, mesma fonte dos dados FIPE):
+
+   .\venv\Scripts\python.exe fipe_download.py
+
+   Ou só carros (menos requisições):
+   .\venv\Scripts\python.exe fipe_download.py --tipos carros
+
+2. O script baixa marcas -> modelos -> anos -> preço para carros, motos e caminhões,
+   salva em out/fipe_db.json e depois normaliza para out/fipe_db_norm.json.
+
+LIMITE DE REQUISIÇÕES
+---------------------
+- Sem token: ~500 requisições por dia (API gratuita).
+- A tabela completa tem dezenas de milhares de entradas; o script salva progresso
+  em out/fipe_download_progress.json e pode ser rodado de novo no dia seguinte
+  para continuar de onde parou.
+- Com token (FIPE_API_TOKEN no .env): até 1000/dia. Planos com mais requisições
+  em https://fipe.online
+
+MANTER ATUALIZADA
+-----------------
+A FIPE atualiza a tabela mensalmente. Rode o download uma vez por mês (ou quando
+quiser atualizar) para ter a tabela sempre atualizada e offline.
+
+REFERÊNCIA
+----------
+- API: https://parallelum.com.br/fipe/api/v1 (e fipe.online para documentação)
+- O projeto rafaelgou/fipe-crawler (PHP/MySQL) faz o mesmo tipo de extração
+  a partir do site oficial veiculos.fipe.org.br; este script usa a API
+  Parallelum em Python, sem PHP nem MySQL.
