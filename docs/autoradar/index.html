@@ -4,170 +4,738 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AutoRadar | Carros abaixo da FIPE antes da concorrência</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --green: #00e676;
-  --dark: #080e1a;
-  --dark2: #0d1626;
-  --surface: #142033;
-  --text: #e8eef8;
-  --muted: #7a93b8;
-  --border: rgba(255,255,255,0.07);
-}
+  :root {
+    --green: #00e676;
+    --dark: #080e1a;
+    --dark2: #0d1626;
+    --surface: #142033;
+    --surface2: #1a2a42;
+    --text: #e8eef8;
+    --muted: #7a93b8;
+    --border: rgba(255,255,255,0.07);
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+  }
 
-* { margin:0; padding:0; box-sizing:border-box; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
 
-body {
-  font-family: Arial;
-  background: var(--dark);
-  color: var(--text);
-}
+  body {
+    font-family: var(--font-body);
+    background: var(--dark);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    font-size: 16px;
+  }
 
-/* NAV */
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: 10px 0; /* AJUSTADO */
-  background: rgba(8,14,26,0.9);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border);
-}
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 14px 0;
+    background: rgba(8,14,26,0.9);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: auto;
+    padding: 0 20px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; }
+  .nav-logo img { height: 60px; display: block; }
+  .nav-logo .logo-text {
+    font-family: var(--font-display);
+    font-size: 24px; font-weight: 800;
+    letter-spacing: 1px; color: var(--green);
+  }
+  .nav-cta {
+    background: var(--green); color: #021008;
+    font-family: var(--font-display);
+    font-size: 15px; font-weight: 700;
+    padding: 9px 20px; border-radius: 6px;
+    text-decoration: none; white-space: nowrap;
+    transition: background .2s, transform .15s;
+  }
+  .nav-cta:hover { background: #fff; transform: translateY(-1px); }
 
-.nav-inner {
-  max-width: 1100px;
-  margin: auto;
-  padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  /* HERO */
+  .hero {
+    padding: 110px 20px 70px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 65% 40%, rgba(0,230,118,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 20% 80%, rgba(0,100,200,0.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1100px; margin: auto;
+    display: flex; flex-direction: row;
+    gap: 48px; align-items: center;
+    position: relative;
+  }
+  .hero-content { flex: 1 1 0; min-width: 0; }
+  /* Vídeo: largura fixa, não estica */
+  .hero-video-col { flex: 0 0 260px; width: 260px; }
 
-.nav-logo img {
-  height: 46px; /* CORRIGIDO */
-}
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,230,118,0.1);
+    border: 1px solid rgba(0,230,118,0.3);
+    border-radius: 100px; padding: 5px 14px;
+    font-size: 13px; font-weight: 600;
+    color: var(--green); letter-spacing: .5px;
+    margin-bottom: 20px;
+    animation: fadeUp .5s ease both;
+  }
+  .hero-badge .dot {
+    width: 7px; height: 7px;
+    background: var(--green); border-radius: 50%;
+    box-shadow: 0 0 8px var(--green); display: block;
+    animation: pulse 1.5s infinite;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(38px, 5vw, 68px);
+    font-weight: 900; line-height: 1.0;
+    letter-spacing: -1px; margin-bottom: 18px;
+    animation: fadeUp .5s .1s ease both;
+  }
+  .hero h1 .accent { color: var(--green); }
+  .hero-sub {
+    font-size: 16px; color: var(--muted);
+    margin-bottom: 32px; max-width: 460px;
+    animation: fadeUp .5s .2s ease both;
+  }
+  .hero-actions {
+    display: flex; flex-direction: column; gap: 12px;
+    animation: fadeUp .5s .3s ease both;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    background: var(--green); color: #021008;
+    font-family: var(--font-display);
+    font-size: 19px; font-weight: 800; letter-spacing: .5px;
+    padding: 15px 28px; border-radius: 8px;
+    text-decoration: none; width: fit-content;
+    transition: transform .15s, box-shadow .2s;
+    box-shadow: 0 0 30px rgba(0,230,118,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 45px rgba(0,230,118,0.45); }
+  .btn-primary svg { width: 20px; height: 20px; flex-shrink: 0; }
+  .hero-note {
+    font-size: 13px; color: var(--muted);
+    display: flex; align-items: center; gap: 7px;
+  }
+  .hero-note::before {
+    content: ''; display: block;
+    width: 4px; height: 4px;
+    background: var(--green); border-radius: 50%; flex-shrink: 0;
+  }
 
-.nav-cta {
-  background: var(--green);
-  color: #000;
-  padding: 10px 20px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
-}
+  /* VIDEO — proporção 9:16 via padding-top */
+  .video-card { position: relative; animation: fadeUp .5s .35s ease both; }
+  .video-label {
+    position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+    background: var(--surface);
+    border: 1px solid rgba(0,230,118,0.3);
+    border-radius: 100px; padding: 4px 14px;
+    font-size: 12px; font-weight: 600; color: var(--green);
+    letter-spacing: .5px; white-space: nowrap; z-index: 2;
+  }
+  .video-frame {
+    border-radius: 14px; overflow: hidden;
+    border: 1px solid rgba(0,230,118,0.25);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+    background: #000;
+    position: relative; width: 100%;
+    padding-top: 177.78%; /* 9:16 */
+  }
+  .video-frame iframe {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%; border: none;
+  }
 
-/* HERO */
-.hero {
-  padding: 90px 20px 60px; /* AJUSTADO */
-  text-align: center;
-}
+  /* STATS */
+  .stats-bar {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 20px;
+  }
+  .stats-inner {
+    max-width: 1100px; margin: auto;
+    display: flex; flex-wrap: wrap;
+  }
+  .stat {
+    flex: 1 1 160px; padding: 10px 20px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-val {
+    font-family: var(--font-display);
+    font-size: 34px; font-weight: 900;
+    color: var(--green); line-height: 1;
+  }
+  .stat-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
 
-.hero h1 {
-  font-size: 42px;
-  margin-bottom: 15px;
-}
+  /* SECTIONS */
+  .section { padding: 80px 20px; }
+  .section-tag {
+    font-family: var(--font-display);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--green); margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 4vw, 50px);
+    font-weight: 900; line-height: 1.05;
+    letter-spacing: -.5px; margin-bottom: 14px;
+  }
+  .section-sub {
+    font-size: 16px; color: var(--muted);
+    max-width: 500px; margin-bottom: 48px;
+  }
+  .wrap { max-width: 1100px; margin: auto; }
 
-.hero p {
-  color: var(--muted);
-  margin-bottom: 25px;
-}
+  /* HOW IT WORKS */
+  .steps {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 20px;
+  }
+  .step {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 28px 24px; position: relative;
+    transition: border-color .25s, transform .2s;
+  }
+  .step:hover { border-color: rgba(0,230,118,0.3); transform: translateY(-4px); }
+  .step-num {
+    font-family: var(--font-display);
+    font-size: 60px; font-weight: 900;
+    color: rgba(0,230,118,0.07); line-height: 1;
+    position: absolute; top: 14px; right: 18px;
+  }
+  .step-icon { font-size: 32px; margin-bottom: 14px; }
+  .step h3 {
+    font-family: var(--font-display);
+    font-size: 20px; font-weight: 700; margin-bottom: 8px;
+  }
+  .step p { font-size: 14px; color: var(--muted); }
 
-.btn {
-  background: var(--green);
-  padding: 14px 28px;
-  border-radius: 8px;
-  color: #000;
-  text-decoration: none;
-  font-weight: bold;
-}
+  /* WHY */
+  .why-section { background: var(--dark2); }
+  .why-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+  .why-item {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 22px 24px;
+    display: flex; gap: 16px; align-items: flex-start;
+    transition: border-color .25s;
+  }
+  .why-item:hover { border-color: rgba(0,230,118,0.25); }
+  .why-icon {
+    flex-shrink: 0; width: 42px; height: 42px;
+    background: rgba(0,230,118,0.1); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .why-item h3 {
+    font-family: var(--font-display);
+    font-size: 18px; font-weight: 700; margin-bottom: 4px;
+  }
+  .why-item p { font-size: 14px; color: var(--muted); }
 
-/* SECTIONS */
-.section {
-  padding: 60px 20px;
-}
+  /* ACCESS */
+  .access-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 48px; align-items: start;
+  }
+  .access-steps { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+  .access-step { display: flex; gap: 16px; align-items: flex-start; }
+  .access-step-num {
+    flex-shrink: 0; width: 34px; height: 34px;
+    background: rgba(0,230,118,0.12);
+    border: 1px solid rgba(0,230,118,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-size: 15px; font-weight: 800; color: var(--green);
+  }
+  .access-step-text h4 {
+    font-family: var(--font-display);
+    font-size: 16px; font-weight: 700; margin-bottom: 3px;
+  }
+  .access-step-text p { font-size: 14px; color: var(--muted); }
+  .access-warning {
+    margin-top: 22px; padding: 13px 16px;
+    background: rgba(255,80,80,0.08);
+    border: 1px solid rgba(255,80,80,0.25);
+    border-radius: 8px;
+    font-size: 14px; color: #ff8080;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .access-visual {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 32px 28px; text-align: center;
+  }
+  .access-visual .tg-icon { font-size: 56px; display: block; margin-bottom: 16px; }
+  .access-visual h3 {
+    font-family: var(--font-display);
+    font-size: 24px; font-weight: 800; margin-bottom: 10px;
+  }
+  .access-visual p { color: var(--muted); font-size: 15px; margin-bottom: 22px; }
+  .access-visual .btn-primary { margin: auto; }
 
-.cards {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
+  /* PLANS */
+  .plans-section { background: var(--dark2); }
+  .plans-grid {
+    display: grid; grid-template-columns: repeat(2,1fr);
+    gap: 24px; max-width: 680px; margin: auto;
+  }
+  .plan-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 30px 26px; position: relative;
+    transition: transform .2s, border-color .25s;
+  }
+  .plan-card:hover { transform: translateY(-4px); }
+  .plan-card.featured {
+    border-color: rgba(0,230,118,0.4);
+    background: linear-gradient(135deg, var(--surface2) 0%, rgba(0,230,118,0.05) 100%);
+  }
+  .plan-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--green); color: #021008;
+    font-family: var(--font-display);
+    font-size: 12px; font-weight: 800; letter-spacing: 1px;
+    padding: 4px 14px; border-radius: 100px; white-space: nowrap;
+  }
+  .plan-name {
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 12px;
+  }
+  .plan-price {
+    font-family: var(--font-display);
+    font-size: 46px; font-weight: 900;
+    line-height: 1; color: var(--text); margin-bottom: 4px;
+  }
+  .plan-price sup {
+    font-size: 20px; vertical-align: top;
+    margin-top: 8px; display: inline-block;
+  }
+  .plan-per { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
+  .plan-feats {
+    list-style: none; display: flex; flex-direction: column;
+    gap: 9px; margin-bottom: 26px;
+  }
+  .plan-feats li { display: flex; gap: 9px; align-items: center; font-size: 14px; }
+  .plan-feats li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+  .btn-plan {
+    display: block; text-align: center; padding: 12px 18px;
+    border-radius: 8px; font-family: var(--font-display);
+    font-size: 16px; font-weight: 700; text-decoration: none;
+    transition: transform .15s;
+  }
+  .btn-plan:hover { transform: translateY(-2px); }
+  .btn-plan-outline {
+    border: 1px solid rgba(0,230,118,0.4);
+    color: var(--green); background: transparent;
+  }
+  .btn-plan-outline:hover { background: rgba(0,230,118,0.08); }
+  .btn-plan-solid { background: var(--green); color: #021008; }
 
-.card {
-  background: var(--surface);
-  padding: 20px;
-  border-radius: 10px;
-  flex: 1;
-  min-width: 250px;
-}
+  /* FINAL CTA */
+  .cta-section {
+    padding: 90px 20px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0,230,118,0.09) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-section h2 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 62px);
+    font-weight: 900; line-height: 1.05;
+    letter-spacing: -.5px; margin-bottom: 16px;
+  }
+  .cta-section p { font-size: 16px; color: var(--muted); margin-bottom: 32px; }
 
-.cta {
-  text-align: center;
-  padding: 60px 20px;
-}
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 20px; text-align: center;
+    font-size: 13px; color: var(--muted);
+  }
+  footer a { color: var(--green); text-decoration: none; }
 
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; } 50% { opacity: .3; }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: .1s; }
+  .reveal-delay-2 { transition-delay: .2s; }
+  .reveal-delay-3 { transition-delay: .3s; }
+
+  /* ── RESPONSIVE ── */
+
+  /* Tablet ~900px */
+  @media (max-width: 900px) {
+    .hero-video-col { flex: 0 0 200px; width: 200px; }
+    .steps { grid-template-columns: 1fr; }
+    .access-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Mobile ~640px */
+  @media (max-width: 640px) {
+    /* Hero: vídeo acima, texto abaixo */
+    .hero { padding: 90px 16px 60px; }
+    .hero-inner { flex-direction: column; gap: 32px; }
+    .hero-video-col {
+      flex: 0 0 auto;
+      width: min(240px, 75vw);
+      align-self: center;
+    }
+    .hero h1 { font-size: clamp(34px, 10vw, 50px); }
+    .hero-sub { font-size: 15px; }
+    .btn-primary { font-size: 16px; padding: 14px 20px; width: 100%; }
+
+    /* Stats: 2x2 */
+    .stats-inner { display: grid; grid-template-columns: 1fr 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); }
+    .stat:nth-child(odd) { border-right: 1px solid var(--border); }
+    .stat:nth-last-child(-n+2) { border-bottom: none; }
+
+    /* 1 coluna em tudo */
+    .why-grid { grid-template-columns: 1fr; }
+    .plans-grid { grid-template-columns: 1fr; max-width: 360px; }
+
+    .section { padding: 56px 16px; }
+    .section-title { font-size: clamp(26px, 8vw, 38px); }
+    .section-sub { font-size: 15px; }
+
+    .cta-section .btn-primary {
+      width: 100%; max-width: 380px; font-size: 15px;
+    }
+  }
 </style>
 </head>
-
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="nav-inner">
     <div class="nav-logo">
-      <img src="https://raw.githubusercontent.com/avelarigor/AutoRadar/main/docs/autoradar/autoradar1.png">
+      <img
+        src="https://raw.githubusercontent.com/avelarigor/AutoRadar/main/docs/autoradar/autoradar1.png"
+        alt="AutoRadar"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
+      >
+      <span class="logo-text" style="display:none">AutoRadar</span>
     </div>
-    <a class="nav-cta" href="https://botgram.club/autoradar" target="_blank">
-      Assinar agora →
-    </a>
+    <a class="nav-cta" href="https://botgram.club/autoradar" target="_blank">Assinar agora →</a>
   </div>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
-  <h1>Carros abaixo da FIPE antes da concorrência</h1>
-  <p>O AutoRadar monitora OLX e Marketplace 24h e envia oportunidades direto no Telegram.</p>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
 
-  <a class="btn" href="https://botgram.club/autoradar" target="_blank">
-    Entrar no Grupo VIP
-  </a>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Monitoramento 24h / 7 dias
+      </div>
+      <h1>
+        Carros abaixo<br>da FIPE —<br>
+        <span class="accent">antes de todo mundo.</span>
+      </h1>
+      <p class="hero-sub">
+        O AutoRadar rastreia OLX e Facebook Marketplace em tempo real e envia as melhores oportunidades direto no seu Telegram. Chegue na frente, negocie primeiro.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="https://botgram.club/autoradar" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+          </svg>
+          Entrar no Grupo VIP
+        </a>
+        <div class="hero-note">A partir de R$&nbsp;13,90/mês &nbsp;·&nbsp; Trimestral com 1 mês grátis</div>
+      </div>
+    </div>
 
-  <p style="margin-top:10px;font-size:14px;">
-    A partir de R$13,90 • Trimestral com 1 mês grátis
-  </p>
+    <!-- VÍDEO SHORTS 9:16 -->
+    <div class="hero-video-col">
+      <div class="video-card">
+        <div class="video-label">📹 Veja oportunidades reais</div>
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/4X51bHU5wDw"
+            title="AutoRadar – Oportunidades reais"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </section>
 
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat reveal">
+      <div class="stat-val">24h</div>
+      <div class="stat-label">Monitoramento contínuo</div>
+    </div>
+    <div class="stat reveal reveal-delay-1">
+      <div class="stat-val">2</div>
+      <div class="stat-label">Plataformas rastreadas</div>
+    </div>
+    <div class="stat reveal reveal-delay-2">
+      <div class="stat-val">1°</div>
+      <div class="stat-label">Você chega antes</div>
+    </div>
+    <div class="stat reveal reveal-delay-3">
+      <div class="stat-val">R$0</div>
+      <div class="stat-label">Taxa extra — cancele quando quiser</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
 <section class="section">
-  <h2>Como funciona</h2>
-
-  <div class="cards">
-    <div class="card">
-      <h3>Monitoramento</h3>
-      <p>Rastreamento automático de anúncios.</p>
+  <div class="wrap">
+    <div class="reveal">
+      <div class="section-tag">Como funciona</div>
+      <h2 class="section-title">Simples, rápido<br>e automático.</h2>
+      <p class="section-sub">Você não precisa fazer nada além de esperar o alerta chegar.</p>
     </div>
-
-    <div class="card">
-      <h3>Análise FIPE</h3>
-      <p>Comparação com preço de mercado.</p>
-    </div>
-
-    <div class="card">
-      <h3>Alerta</h3>
-      <p>Receba direto no Telegram.</p>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <div class="step-icon">🔍</div>
+        <h3>Monitoramento</h3>
+        <p>Nosso sistema analisa centenas de anúncios por hora na OLX e no Facebook Marketplace, 24h por dia, 7 dias por semana.</p>
+      </div>
+      <div class="step reveal reveal-delay-1">
+        <div class="step-num">02</div>
+        <div class="step-icon">📊</div>
+        <h3>Análise FIPE</h3>
+        <p>Cada veículo encontrado é comparado automaticamente com a tabela FIPE. Só passa quem estiver abaixo do valor de mercado.</p>
+      </div>
+      <div class="step reveal reveal-delay-2">
+        <div class="step-num">03</div>
+        <div class="step-icon">⚡</div>
+        <h3>Alerta no Telegram</h3>
+        <p>Assim que o anúncio entra no ar, você recebe o alerta completo com modelo, preço, desconto e link direto para contato.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="cta">
-  <h2>Quer receber oportunidades agora?</h2>
-
-  <a class="btn" href="https://botgram.club/autoradar" target="_blank">
-    Assinar agora
-  </a>
+<!-- WHY -->
+<section class="section why-section">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="section-tag">Vantagens</div>
+      <h2 class="section-title">Por que usar o AutoRadar?</h2>
+      <p class="section-sub">Pare de garimpar manualmente. Deixe o robô trabalhar por você.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-item reveal">
+        <div class="why-icon">🏁</div>
+        <div>
+          <h3>Chegue na frente</h3>
+          <p>Enquanto seus concorrentes ainda estão pesquisando, você já está na negociação. Velocidade é dinheiro no mercado automotivo.</p>
+        </div>
+      </div>
+      <div class="why-item reveal reveal-delay-1">
+        <div class="why-icon">⏱️</div>
+        <div>
+          <h3>Economize horas por dia</h3>
+          <p>Nada de scroll infinito em plataformas. O sistema faz a triagem — você só vê o que realmente vale a pena.</p>
+        </div>
+      </div>
+      <div class="why-item reveal reveal-delay-2">
+        <div class="why-icon">💰</div>
+        <div>
+          <h3>Foque nas margens</h3>
+          <p>Cada oportunidade já vem com o desconto em relação à FIPE calculado. Decida em segundos se vale ligar.</p>
+        </div>
+      </div>
+      <div class="why-item reveal reveal-delay-3">
+        <div class="why-icon">🤖</div>
+        <div>
+          <h3>100% automatizado</h3>
+          <p>Oportunidades aparecem no seu celular sozinhas. Sem esforço manual, sem perder anúncios enquanto você dorme.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- ACCESS -->
+<section class="section">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="section-tag">Acesso</div>
+      <h2 class="section-title">Como entrar no grupo?</h2>
+      <p class="section-sub">É rápido. Em menos de 5 minutos você já estará recebendo alertas.</p>
+    </div>
+    <div class="access-grid">
+      <div>
+        <ul class="access-steps">
+          <li class="access-step reveal">
+            <div class="access-step-num">1</div>
+            <div class="access-step-text">
+              <h4>Escolha seu plano</h4>
+              <p>Selecione o plano mensal ou trimestral e avance para o checkout seguro.</p>
+            </div>
+          </li>
+          <li class="access-step reveal reveal-delay-1">
+            <div class="access-step-num">2</div>
+            <div class="access-step-text">
+              <h4>Realize o pagamento</h4>
+              <p>Pagamento processado com segurança via cartão ou PIX.</p>
+            </div>
+          </li>
+          <li class="access-step reveal reveal-delay-2">
+            <div class="access-step-num">3</div>
+            <div class="access-step-text">
+              <h4>Acesse o link no e-mail</h4>
+              <p>Você recebe um e-mail com o link exclusivo para entrar no grupo VIP do Telegram.</p>
+            </div>
+          </li>
+          <li class="access-step reveal reveal-delay-3">
+            <div class="access-step-num">4</div>
+            <div class="access-step-text">
+              <h4>Comece a receber oportunidades</h4>
+              <p>Pronto. A partir daí, os alertas chegam automaticamente no seu Telegram.</p>
+            </div>
+          </li>
+        </ul>
+        <div class="access-warning reveal">
+          ⚠️ Assinantes que não renovarem são removidos automaticamente ao final do período.
+        </div>
+      </div>
+      <div class="access-visual reveal">
+        <span class="tg-icon">✈️</span>
+        <h3>Grupo VIP no Telegram</h3>
+        <p>Alertas em tempo real assim que os anúncios entram no ar. Nunca perca uma oportunidade.</p>
+        <a class="btn-primary" href="https://botgram.club/autoradar" target="_blank">
+          Quero entrar agora
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section class="section plans-section">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;margin-bottom:44px;">
+      <div class="section-tag" style="display:flex;justify-content:center;">Planos</div>
+      <h2 class="section-title">Escolha seu plano</h2>
+      <p class="section-sub" style="margin:0 auto;">Sem taxas ocultas. Cancele quando quiser.</p>
+    </div>
+    <div class="plans-grid">
+      <div class="plan-card reveal">
+        <div class="plan-name">Mensal</div>
+        <div class="plan-price"><sup>R$</sup>13<span style="font-size:26px">,90</span></div>
+        <div class="plan-per">por mês</div>
+        <ul class="plan-feats">
+          <li>Alertas ilimitados no Telegram</li>
+          <li>Monitoramento OLX + Marketplace</li>
+          <li>Comparação automática com FIPE</li>
+          <li>Cancelamento a qualquer momento</li>
+        </ul>
+        <a class="btn-plan btn-plan-outline" href="https://botgram.club/autoradar" target="_blank">Assinar mensal</a>
+      </div>
+      <div class="plan-card featured reveal reveal-delay-1">
+        <div class="plan-badge">MAIS POPULAR</div>
+        <div class="plan-name">Trimestral</div>
+        <div class="plan-price"><sup>R$</sup>27<span style="font-size:26px">,90</span></div>
+        <div class="plan-per">por 3 meses — 1 mês grátis incluso</div>
+        <ul class="plan-feats">
+          <li>Tudo do plano mensal</li>
+          <li>1 mês extra sem custo</li>
+          <li>Melhor custo-benefício</li>
+          <li>Prioridade em novos recursos</li>
+        </ul>
+        <a class="btn-plan btn-plan-solid" href="https://botgram.club/autoradar" target="_blank">Assinar trimestral</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section">
+  <div style="max-width:680px;margin:auto;position:relative;">
+    <h2 class="reveal">
+      Comece a receber<br>oportunidades <span style="color:var(--green)">hoje</span>.
+    </h2>
+    <p class="reveal reveal-delay-1">
+      Milhares de anúncios monitorados por dia. Os melhores negócios chegam no seu Telegram antes de todo mundo.
+    </p>
+    <div class="reveal reveal-delay-2" style="display:flex;justify-content:center;">
+      <a class="btn-primary" href="https://botgram.club/autoradar" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px;flex-shrink:0">
+          <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+        </svg>
+        Assinar agora — a partir de R$&nbsp;13,90
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 AutoRadar · Todos os direitos reservados ·
+    <a href="https://botgram.club/autoradar" target="_blank">botgram.club/autoradar</a>
+  </p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
