@@ -37,13 +37,14 @@
 /* NAV - Ajustada para acomodar uma logo maior */
 nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    min-height: 75px; /* Altura mínima levemente maior */
+    height: 70px; /* Altura fixa confortável */
     display: flex;
     align-items: center;
     background: rgba(8,14,26,0.9);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--border);
-  }
+    padding: 0; /* Removemos o padding para a altura ser controlada pelo height */
+}
 .nav-inner {
     width: 100%;
     max-width: 1100px; 
@@ -57,16 +58,14 @@ nav {
   
   /* Ajuste específico da Imagem */
 .nav-logo img { 
-    height: 140px; /* Tamanho bem grande como você queria */
+    height: 50px; /* Teste entre 45px e 55px até achar o ideal */
     width: auto;
     display: block; 
     object-fit: contain;
-    /* Faz a logo ignorar o limite da barra e "flutuar" */
-    margin-top: -10px;
-    margin-bottom: -10px;
-    position: relative;
-    z-index: 101;
-  }
+    /* Removemos margens negativas e transform: scale */
+    margin: 0; 
+    transform: none; 
+}
   
   .nav-logo .logo-text {
     font-family: var(--font-display);
@@ -85,10 +84,11 @@ nav {
   .nav-cta:hover { background: #fff; transform: translateY(-1px); }
 
   /* HERO */
-  .hero {
-    padding: 110px 20px 70px;
-    position: relative; overflow: hidden;
-  }
+.hero {
+    padding: 110px 20px 70px; /* 110px de topo é o suficiente para não cobrir o badge */
+    position: relative; 
+    overflow: hidden;
+}
   .hero::before {
     content: ''; position: absolute; inset: 0;
     background:
