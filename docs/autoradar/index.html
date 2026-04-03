@@ -35,9 +35,11 @@
 
   /* NAV */
 /* NAV - Ajustada para acomodar uma logo maior */
-  nav {
+nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 20px 0; /* Reduzi de 14px para 8px para compensar o aumento da logo */
+    height: 70px; /* Travamos a altura da barra aqui */
+    display: flex;
+    align-items: center;
     background: rgba(8,14,26,0.9);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--border);
@@ -51,14 +53,15 @@
   
   /* Ajuste específico da Imagem */
 .nav-logo img { 
-    height: 120px; /* Dobramos o valor anterior */
+    height: 110px; /* Ajuste este valor para o tamanho real que deseja */
     width: auto;
     display: block; 
     object-fit: contain;
-    transform: scale(1.5); /* Isso aumenta a escala visual em 50% além do height */
-    transform-origin: left center; /* Garante que ela cresça para a direita, sem sair da posição */
-    margin-right: 25px; /* Abre espaço para o texto não ficar em cima da logo que cresceu */
-}
+    margin-top: -15px;    /* Puxa para cima */
+    margin-bottom: -15px; /* Puxa para baixo */
+    position: relative;
+    z-index: 101;
+  }
   
   .nav-logo .logo-text {
     font-family: var(--font-display);
