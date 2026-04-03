@@ -34,9 +34,10 @@
   }
 
   /* NAV */
+/* NAV - Ajustada para acomodar uma logo maior */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 14px 0;
+    padding: 8px 0; /* Reduzi de 14px para 8px para compensar o aumento da logo */
     background: rgba(8,14,26,0.9);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--border);
@@ -46,11 +47,21 @@
     padding: 0 20px;
     display: flex; align-items: center; justify-content: space-between;
   }
-  .nav-logo { display: flex; align-items: center; gap: 10px; }
-  .nav-logo img { height: 60px; display: block; }
+  .nav-logo { display: flex; align-items: center; gap: 8px; }
+  
+  /* Ajuste específico da Imagem */
+  .nav-logo img { 
+    height: 85px; /* Aumentado de 60px para 85px */
+    width: auto;
+    display: block; 
+    margin: -10px 0; /* Margem negativa para a logo "extrapolar" levemente o padding se necessário */
+    object-fit: contain;
+  }
+  
   .nav-logo .logo-text {
     font-family: var(--font-display);
-    font-size: 24px; font-weight: 800;
+    font-size: 28px; /* Aumentado de 24px para 28px para acompanhar a imagem */
+    font-weight: 800;
     letter-spacing: 1px; color: var(--green);
   }
   .nav-cta {
