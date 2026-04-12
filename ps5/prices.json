@@ -1,0 +1,10 @@
+{
+  "note": "Preços de referência para revenda (seminovo) de PS5. Atualizado em março/2026. Valor único R$3200 para todas as versões.",
+  "prices": {
+    "ps5":              3200,
+    "ps5 digital":      3200,
+    "ps5 slim":         3200,
+    "ps5 slim digital": 3200,
+    "ps5 pro":          3200
+  }
+}

@@ -1,4 +1,5 @@
 import asyncio
+import random
 import sqlite3
 from typing import List, Dict
 
@@ -7,7 +8,7 @@ from scanners.scan_facebook import scan_facebook_listing
 from scanners.scan_olx import scan_olx_listing
 
 from fipe.engine_v2 import FipeEngineV2
-from shared_browser import get_shared_page
+from shared_browser import get_shared_page, get_olx_cars_page
 import autoradar_config
 
 # IMPORT CORRETO
@@ -109,23 +110,10 @@ async def scan_listings(links: List[str]):
 
     fb_page = await get_shared_page()
 
-    # Browser efêmero para OLX — evita Cloudflare que bloqueia o perfil persistente do Facebook
-    has_olx = any("olx.com.br" in url for url in links)
-    olx_pw = olx_browser = olx_ctx = olx_page = None
-
     listings = []
     errors = 0
 
     try:
-        if has_olx:
-            olx_pw = await async_playwright().start()
-            olx_browser = await olx_pw.chromium.launch(headless=True)
-            olx_ctx = await olx_browser.new_context(
-                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
-                locale="pt-BR",
-            )
-            olx_page = await olx_ctx.new_page()
-
         for url in links:
 
             try:
@@ -135,7 +123,11 @@ async def scan_listings(links: List[str]):
                 # --------------------------------------------------------
 
                 if "olx.com.br" in url:
+                    # Reutiliza página OLX persistente — evita subir novo Chromium por link
+                    olx_page = await get_olx_cars_page()
                     listing = await scan_olx_listing(olx_page, url)
+                    # Delay inter-scan: imita usuário navegando entre anúncios
+                    await asyncio.sleep(random.uniform(6.0, 12.0))
                 else:
                     listing = await scan_facebook_listing(fb_page, url)
 
@@ -236,13 +228,6 @@ async def scan_listings(links: List[str]):
                 errors += 1
 
     finally:
-        if olx_browser:
-            try:
-                await olx_page.close()
-                await olx_ctx.close()
-                await olx_browser.close()
-                await olx_pw.stop()
-            except Exception:
-                pass
+        pass  # Páginas OLX e Facebook são reutilizadas — não fechar aqui
 
     return listings, errors

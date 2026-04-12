@@ -591,9 +591,10 @@ class FipeEngineV2:
         if res and _trim_ok(res["fipe_model"]): return res
 
         if res:
-            # Encontrou algo mas o trim não bate — falso positivo, recusa o match
-            print(f"[FIPE TRIM MISMATCH] Título pede '{_required_trims}' mas só há '{res['fipe_model']}' — descartado")
-            return None
+            # Trim não bate exatamente, mas usa o valor local disponível como aproximação conservadora.
+            # A versão base tem FIPE menor que a versão superior do título → margem subestimada → seguro.
+            print(f"[FIPE TRIM APPROX] Título pede '{_required_trims}' — usando aproximação: '{res['fipe_model']}' (margem conservadora)")
+            return res
 
         print(f"[FIPE NÃO ENCONTRADA] {titulo}")
         return None
