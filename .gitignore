@@ -22,8 +22,12 @@ venv/
 trash/
 desktop.ini
 
-# ── Cache de dados ────────────────────────────────────────────────────────────
+# ── Bancos de dados (mudam frequentemente, não versionados) ──────────────────
 data/cache/
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
 
 # ── VS Code ───────────────────────────────────────────────────────────────────
 .vscode/
